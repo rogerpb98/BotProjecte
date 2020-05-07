@@ -21,6 +21,16 @@ async def on_disconnect():
 @client.event
 async def on_ready():
     print("El bot està llest per ser utilitzat.")
+
+#Aquest event notifica quan un usuari entra a un servidor on estigui el bot.
+@client.event
+async def on_member_join(member):
+    print("L'usuari ",member," acaba d'entrar al servidor.")
+
+#Aquest event notifica quan un usuari surt d'un servidor on estigui el bot.
+@client.event
+async def on_member_remove(member):
+    print("L'usuari ",member," acaba de sortir del servidor.")
 ################
 
 #####COMANDES#####
