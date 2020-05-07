@@ -17,6 +17,10 @@ async def on_connect():
 async def on_disconnect():
     print("S'ha desconnectat al servidor")
 
+#Event que mostra per consola i mitjançant un missatge pel servidor quan el bot estigui llest per rebre comandes/tasques.
+@client.event
+async def on_ready():
+    print("El bot està llest per ser utilitzat.")
 ################
 
 #####COMANDES#####
