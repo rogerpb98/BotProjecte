@@ -38,7 +38,7 @@ async def on_member_remove(member):
 async def on_message(message):
     if message.content.startswith('!eventest'):
         canal = message.channel
-        await canal.send('funciona')
+        await canal.send('Funciona')
 
 #Event/comanda que mostra una imatge dintre de la carpeta.
 @client.event
@@ -46,8 +46,36 @@ async def on_message(message):
     if message.content.startswith('!imatge'):
         #buscar forma de interactuar amb el bot per decidir si la imatge será d'animals o d'insectes
         canal = message.channel
-        await canal.send('funciona')
+        misatge = await canal.send("Reacciona a aquest missatge amb un dels seguents emojis \n :cat: Fotografia d'un animal \n :bee: Fotografia d'un insecte")
+        reaccio = await client.wait_for('reaction_add')
+        print(reaccio)
+        if reaccio == (':cat:'):
+            await canal.send('Has escollit animals')
+        elif reaccio == (':bee:'):
+            await canal.send('Has escollit bichos')
+        else:
+            await canal.send('Aquesta reacció no es valida')
 
+#Galeta de la fortuna, utilitzant la llibrería "random" el bot escollirà una frase de l'array "frases" aleatoriament i la mostrarà per discord.
+@client.event
+async def on_message(message):
+    if message.content.startswith('!fortuna'):
+        canal = message.channel
+        frases=[
+            'Tendrás un día de alegrías y buenos momentos, disfrútalos como nunca.',
+            'Concéntrate en lo que quieres lograr y ganaras. No lo olvides.',
+            'El cielo sera tu limite, pues grandes acontecimientos te sucederán.',
+            'Te sentirás feliz como un niño y veras al mundo con sus ojos.',
+            'Vivirás tu vejez con comodidades y riquezas materiales.'
+        ]
+        await canal.send(random.choice(frases))
+
+#comanda de prova per veure com enviar missatges per un canal de texte a Discord.
+@client.event
+async def on_message(message):
+    if message.content.startswith('!patata'):
+        canal = message.channel
+        await canal.send('patata')
 ################
 
 #####COMANDES#####
@@ -56,18 +84,6 @@ async def on_message(message):
 @client.command()
 async def patata(ctx):
     await ctx.send('patata')
-
-#Galeta de la fortuna, utilitzant la llibrería "random" el bot escollirà una frase de l'array "frases" aleatoriament i la mostrarà per discord.
-@client.command()
-async def fortuna(ctx):
-    frases=[
-        'Tendrás un día de alegrías y buenos momentos, disfrútalos como nunca.',
-        'Concéntrate en lo que quieres lograr y ganaras. No lo olvides.',
-        'El cielo sera tu limite, pues grandes acontecimientos te sucederán.',
-        'Te sentirás feliz como un niño y veras al mundo con sus ojos.',
-        'Vivirás tu vejez con comodidades y riquezas materiales.'
-    ]
-    await ctx.send(random.choice(frases))
 
 ##################
 
