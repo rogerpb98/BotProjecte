@@ -33,6 +33,15 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print("L'usuari ",member," acaba de sortir del servidor.")
 
+#Event de prova per veure com es poden fer comandes amb els events.
+@client.event
+async def on_message(message):
+    if message.content.startswith('!eventest'):
+        canal = message.channel
+        await canal.send('funciona')
+
+
+
 ################
 
 #####COMANDES#####
