@@ -43,6 +43,7 @@ async def on_message(message):
 #Event/comanda que mostra una imatge dintre de la carpeta.
 @client.event
 async def on_message(message):
+    #Event/comanda que mostra una imatge dintre de la carpeta.
     if message.content.startswith('!imatge'):
         #buscar forma de interactuar amb el bot per decidir si la imatge será d'animals o d'insectes
         canal = message.channel
@@ -55,11 +56,9 @@ async def on_message(message):
             await canal.send('Has escollit bichos')
         else:
             await canal.send('Aquesta reacció no es valida')
-
-#Galeta de la fortuna, utilitzant la llibrería "random" el bot escollirà una frase de l'array "frases" aleatoriament i la mostrarà per discord.
-@client.event
-async def on_message(message):
+    #Galeta de la fortuna, utilitzant la llibrería "random" el bot escollirà una frase de l'array "frases" aleatoriament i la mostrarà per discord.
     if message.content.startswith('!fortuna'):
+        print('as')
         canal = message.channel
         frases=[
             'Tendrás un día de alegrías y buenos momentos, disfrútalos como nunca.',
@@ -68,22 +67,16 @@ async def on_message(message):
             'Te sentirás feliz como un niño y veras al mundo con sus ojos.',
             'Vivirás tu vejez con comodidades y riquezas materiales.'
         ]
-        await canal.send(random.choice(frases))
-
-#comanda de prova per veure com enviar missatges per un canal de texte a Discord.
-@client.event
-async def on_message(message):
+        await message.channel.send(random.choice(frases))
+        
+    #comanda de prova per veure com enviar missatges per un canal de texte a Discord.
     if message.content.startswith('!patata'):
         canal = message.channel
         await canal.send('patata')
+    
 ################
 
 #####COMANDES#####
-
-#comanda de prova per veure com enviar missatges per un canal de texte a Discord.
-@client.command()
-async def patata(ctx):
-    await ctx.send('patata')
 
 ##################
 
