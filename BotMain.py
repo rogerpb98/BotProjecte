@@ -40,7 +40,13 @@ async def on_message(message):
         canal = message.channel
         await canal.send('funciona')
 
-
+#Event/comanda que mostra una imatge dintre de la carpeta.
+@client.event
+async def on_message(message):
+    if message.content.startswith('!imatge'):
+        #buscar forma de interactuar amb el bot per decidir si la imatge será d'animals o d'insectes
+        canal = message.channel
+        await canal.send('funciona')
 
 ################
 
