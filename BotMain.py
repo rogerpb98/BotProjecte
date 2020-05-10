@@ -49,9 +49,9 @@ async def on_message(message):
         canal = message.channel
         misatge = await canal.send("Reacciona a aquest missatge amb un dels seguents emojis \n :cat: Fotografia d'un animal \n :bee: Fotografia d'un insecte")
         def check(reaction, user):
-            return user == message.author and (str(reaction.emoji) == 'U1F638' or str(reaction.emoji) == 'U1F41D')
+            return user == message.author and (str(reaction.emoji) == '\U0001f431' or str(reaction.emoji) == '\U0001f41d')
         try:
-            reaction, user = await client.wait_for('reaction_add', timeout=5.0, check=check)
+            reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
             print('patata')
         except asyncio.TimeoutError:
             await canal.send('No has reaccionat amb un emoji de la llista')
