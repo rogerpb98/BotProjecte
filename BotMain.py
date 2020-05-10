@@ -51,21 +51,15 @@ async def on_message(message):
         def check(reaction, user):
             return user == message.author and (str(reaction.emoji) == '\U0001f431' or str(reaction.emoji) == '\U0001f41d')
         try:
-            reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
-            print('patata')
+            reaction, user = await client.wait_for('reaction_add', timeout=10.0, check=check)
+            #print(reaction)
         except asyncio.TimeoutError:
             await canal.send('No has reaccionat amb un emoji de la llista')
         else:
-            await canal.send('patata')
-        '''print(reaccio)
-        if reaccio == (':cat:'):
-            await canal.send('Has escollit animals')
-            #await channel.send(file=discord.File('ruta_fitxer.jpg'))
-        elif reaccio == (':bee:'):
-            await canal.send('Has escollit bichos')
-            #await channel.send(file=discord.File('ruta_fitxer.jpg'))
-        else:
-            await canal.send('Aquesta reacció no es valida')'''
+            if str(reaction.emoji) == '\U0001f431':
+                await canal.send('\U0001f431')
+            elif str(reaction.emoji) == '\U0001f41d':
+                await canal.send('\U0001f41d')
         
     #Galeta de la fortuna, utilitzant la llibrería "random" el bot escollirà una frase de l'array "frases" aleatoriament i la mostrarà per discord.
     if message.content.startswith('!fortuna'):
@@ -91,11 +85,6 @@ async def on_message(message):
 #####COMANDES#####
 
 #Comanda per entrar al canal de veu
-@client.command(pass_context=True)
-async def join(ctx):    
-    channel = message.author.voice.voice_channel
-    await client.join_channel(channel)
-
 
 ##################
 
