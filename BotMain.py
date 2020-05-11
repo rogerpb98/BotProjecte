@@ -1,6 +1,7 @@
 import discord
 import random
 import asyncio
+import os
 from discord.ext import commands, tasks
 
 token = 'Njk5OTIyOTA4MTc2MzE4NTU5.Xqq8-g.C2Yvl3C6v1X19saiNDHyHJ6ZOOI'
@@ -56,10 +57,24 @@ async def on_message(message):
         except asyncio.TimeoutError:
             await canal.send('No has reaccionat amb un emoji de la llista')
         else:
+            #Si l'emoji es el gat, mostra una imatge d'un animal
             if str(reaction.emoji) == '\U0001f431':
-                await canal.send('\U0001f431')
+                lista=[]
+                for root, dirs, files in os.walk("./Imagenes/Animales"):
+                    for filename in files:
+                        lista.append(filename)
+                imatgeamostrar=str(random.choice(lista)) #guarda la imatge aleatoria a una variable per facil·litar utilitzarla en la seguent linea
+                file = discord.File("./Imagenes/Animales/{}".format(imatgeamostrar), filename="image.png") # Estableix la variable que contindrá la imatge i el nom amb el que el bot la pujará.
+                await canal.send(file=file)
+            #Si l'emoji es l'abella, mostra una imatge d'un insecte
             elif str(reaction.emoji) == '\U0001f41d':
-                await canal.send('\U0001f41d')
+                lista=[]
+                for root, dirs, files in os.walk("./Imagenes/Bichos"):
+                    for filename in files:
+                        lista.append(filename)
+                imatgeamostrar=str(random.choice(lista)) #guarda la imatge aleatoria a una variable per facil·litar utilitzarla en la seguent linea
+                file = discord.File("./Imagenes/Bichos/{}".format(imatgeamostrar), filename="image.png") # Estableix la variable que contindrá la imatge i el nom amb el que el bot la pujará.
+                await canal.send(file=file)
         
     #Galeta de la fortuna, utilitzant la llibrería "random" el bot escollirà una frase de l'array "frases" aleatoriament i la mostrarà per discord.
     if message.content.startswith('!fortuna'):
