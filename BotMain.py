@@ -63,7 +63,7 @@ async def on_message(message):
                 for root, dirs, files in os.walk("./Imagenes/Animales"):
                     for filename in files:
                         lista.append(filename)
-                imatgeamostrar=str(random.choice(lista)) #guarda la imatge aleatoria a una variable per facil·litar utilitzarla en la seguent linea
+                imatgeamostrar=str(random.choice(lista)) #Guarda la imatge aleatoria a una variable per facil·litar utilitzarla en la seguent linea
                 file = discord.File("./Imagenes/Animales/{}".format(imatgeamostrar), filename="image.png") # Estableix la variable que contindrá la imatge i el nom amb el que el bot la pujará.
                 await canal.send(file=file)
             #Si l'emoji es l'abella, mostra una imatge d'un insecte
@@ -72,7 +72,7 @@ async def on_message(message):
                 for root, dirs, files in os.walk("./Imagenes/Bichos"):
                     for filename in files:
                         lista.append(filename)
-                imatgeamostrar=str(random.choice(lista)) #guarda la imatge aleatoria a una variable per facil·litar utilitzarla en la seguent linea
+                imatgeamostrar=str(random.choice(lista)) #Guarda la imatge aleatoria a una variable per facil·litar utilitzarla en la seguent linea
                 file = discord.File("./Imagenes/Bichos/{}".format(imatgeamostrar), filename="image.png") # Estableix la variable que contindrá la imatge i el nom amb el que el bot la pujará.
                 await canal.send(file=file)
         
@@ -100,7 +100,9 @@ async def on_message(message):
 #####COMANDES#####
 
 #Comanda per entrar al canal de veu
-
+@client.command()
+async def entrar(ctx, channel: discord.VoiceChannel):
+    await channel.connect()
 ##################
 
 #####TASKS#####
