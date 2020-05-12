@@ -99,11 +99,17 @@ async def on_message(message):
 
 #####COMANDES#####
 
-#Comanda per entrar al canal de veu
+#Comanda per entrar al canal de veu, requereix d'un argument
 @client.command()
 async def entrar(ctx, channel: discord.VoiceChannel):
-    await channel.connect()
+    print(ctx.voice_client)
+    #El seguent if verifica que si el bot està conectat a un servidor, en cas de que sí, en comptes de fer un connect farà un mobe_to
+    if ctx.voice_client != None:
+        await ctx.voice_client.move_to(channel)
+    else:
+        await channel.connect()
 
+#Comanda per sortir de qualsevol canal de veu
 @client.command()
 async def sortir(ctx):
     await ctx.voice_client.disconnect()
