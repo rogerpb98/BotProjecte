@@ -7,6 +7,7 @@ from discord.ext import commands, tasks
 token = 'Njk5OTIyOTA4MTc2MzE4NTU5.Xqq8-g.C2Yvl3C6v1X19saiNDHyHJ6ZOOI'
 
 client = commands.Bot(command_prefix='!')
+client.remove_command('help')
 
 #####EVENTS#####
 
@@ -98,6 +99,20 @@ async def on_message(message):
 ################
 
 #####COMANDES#####
+
+#Comanda d'ajuda que mostrarà totes les comandes disponibles del bot.
+@client.command()
+async def help(ctx):
+    embed = discord.Embed()
+    embed.set_author(name='Help')
+    embed.add_field(name='!eventest', value='Event de prova per veure com es poden fer comandes amb els events.', inline=False)
+    embed.add_field(name='!imatge', value='Event/comanda que mostra una imatge dintre de la carpeta.', inline=False)
+    embed.add_field(name='!fortuna', value="#Galeta de la fortuna, utilitzant la llibrería 'random' el bot escollirà una frase de l'array 'frases' aleatoriament i la mostrarà per discord.", inline=False)
+    embed.add_field(name='!patata', value='Comanda de prova per veure com enviar missatges per un canal de texte a Discord.', inline=False)
+    embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes del canal de veu', inline=False)
+    embed.add_field(name='!entrar', value="#Comanda per entrar al canal de veu, requereix d'un argument", inline=False)
+    embed.add_field(name='!sortir', value='Comanda per sortir de qualsevol canal de veu', inline=False)
+    await ctx.send(embed=embed)
 
 #Comanda per entrar al canal de veu, requereix d'un argument
 @client.command()
