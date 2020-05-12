@@ -103,6 +103,10 @@ async def on_message(message):
 @client.command()
 async def entrar(ctx, channel: discord.VoiceChannel):
     await channel.connect()
+
+@client.command()
+async def sortir(ctx):
+    await ctx.voice_client.disconnect()
 ##################
 
 #####TASKS#####
