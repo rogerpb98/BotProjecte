@@ -93,6 +93,13 @@ async def on_message(message):
     if message.content.startswith('!patata'):
         canal = message.channel
         await canal.send('patata')
+    
+    #Comanda de prova
+    if message.content.startswith('!test1'):
+        canal = message.channel
+        usuari = message.author
+        await canal.send(usuari.mention)
+
     #La seguent linea es la solució a que no s'executessin els @client.command, es degut a un conflicte amb els events on_message i aquesta es la sol·lució que he trovat.
     await client.process_commands(message)
     
@@ -105,10 +112,12 @@ async def on_message(message):
 async def help(ctx):
     embed = discord.Embed()
     embed.set_author(name='Help')
+    embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes de prova', inline=False)
     embed.add_field(name='!eventest', value='Event de prova per veure com es poden fer comandes amb els events.', inline=False)
-    embed.add_field(name='!imatge', value='Event/comanda que mostra una imatge dintre de la carpeta.', inline=False)
-    embed.add_field(name='!fortuna', value="#Galeta de la fortuna, utilitzant la llibrería 'random' el bot escollirà una frase de l'array 'frases' aleatoriament i la mostrarà per discord.", inline=False)
     embed.add_field(name='!patata', value='Comanda de prova per veure com enviar missatges per un canal de texte a Discord.', inline=False)
+    embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes generals', inline=False)
+    embed.add_field(name='!imatge', value='Event/comanda que mostra una imatge dintre de la carpeta.', inline=False)
+    embed.add_field(name='!fortuna', value="Galeta de la fortuna, utilitzant la llibrería 'random' el bot escollirà una frase de l'array 'frases' aleatoriament i la mostrarà per discord.", inline=False)
     embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes del canal de veu', inline=False)
     embed.add_field(name='!entrar', value="#Comanda per entrar al canal de veu, requereix d'un argument", inline=False)
     embed.add_field(name='!sortir', value='Comanda per sortir de qualsevol canal de veu', inline=False)
