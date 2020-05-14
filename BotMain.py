@@ -100,6 +100,15 @@ async def on_message(message):
         usuari = message.author
         await canal.send(usuari.mention)
 
+    if message.content.startswith('!menciorandom'):
+        canal = message.channel
+        servidor = message.guild
+        membresserver = servidor.members
+        llistamembres =[]
+        for i in membresserver:
+            llistamembres.append(i.mention)
+        await canal.send(random.choice(llistamembres))
+
     #La seguent linea es la solució a que no s'executessin els @client.command, es degut a un conflicte amb els events on_message i aquesta es la sol·lució que he trovat.
     await client.process_commands(message)
     
