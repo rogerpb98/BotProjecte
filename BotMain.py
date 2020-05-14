@@ -100,6 +100,7 @@ async def on_message(message):
         usuari = message.author
         await canal.send(usuari.mention)
 
+    #Menciona a una persona aleatoria dintre del servidor.
     if message.content.startswith('!menciorandom'):
         canal = message.channel
         servidor = message.guild
@@ -108,6 +109,15 @@ async def on_message(message):
         for i in membresserver:
             llistamembres.append(i.mention)
         await canal.send(random.choice(llistamembres))
+    
+    #Menciona a tothom dintre del servidor
+    if message.content.startswith('!mencioall'):
+        canal = message.channel
+        servidor = message.guild
+        membresserver = servidor.members
+        for i in membresserver:
+            await canal.send(i.mention)
+
 
     #La seguent linea es la solució a que no s'executessin els @client.command, es degut a un conflicte amb els events on_message i aquesta es la sol·lució que he trovat.
     await client.process_commands(message)
@@ -122,9 +132,12 @@ async def help(ctx):
     embed = discord.Embed()
     embed.set_author(name='Help')
     embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes de prova', inline=False)
+    embed.add_field(name='!test1', value="Menciona a l'usuari que crida la comanda.", inline=False)
     embed.add_field(name='!eventest', value='Event de prova per veure com es poden fer comandes amb els events.', inline=False)
     embed.add_field(name='!patata', value='Comanda de prova per veure com enviar missatges per un canal de texte a Discord.', inline=False)
     embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes generals', inline=False)
+    embed.add_field(name='!mencioall', value='Menciona a tothom en aquest servidor.', inline=False)
+    embed.add_field(name='!menciorandom', value='Menciona aleatoriament a un usuari del servidor.', inline=False)
     embed.add_field(name='!imatge', value='Event/comanda que mostra una imatge dintre de la carpeta.', inline=False)
     embed.add_field(name='!fortuna', value="Galeta de la fortuna, utilitzant la llibrería 'random' el bot escollirà una frase de l'array 'frases' aleatoriament i la mostrarà per discord.", inline=False)
     embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes del canal de veu', inline=False)
