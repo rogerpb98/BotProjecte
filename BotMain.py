@@ -1,7 +1,7 @@
 import discord
 import random
 import asyncio
-import os
+import time
 from discord.ext import commands, tasks
 
 token = 'Njk5OTIyOTA4MTc2MzE4NTU5.Xqq8-g.C2Yvl3C6v1X19saiNDHyHJ6ZOOI'
@@ -38,13 +38,14 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print("L'usuari ",member," acaba de sortir del servidor.")
 
-#Event/comanda que mostra una imatge dintre de la carpeta.
+#Comandes via events.
 @client.event
 async def on_message(message):
     #Event de prova per veure com es poden fer comandes amb els events.
     if message.content.startswith('!eventest'):
         canal = message.channel
         await canal.send('Funciona')
+
     #Event/comanda que mostra una imatge dintre de la carpeta.
     if message.content.startswith('!imatge'):
         #Buscar forma de interactuar amb el bot per decidir si la imatge será d'animals o d'insectes
@@ -144,6 +145,16 @@ async def help(ctx):
     embed.add_field(name='!entrar', value="#Comanda per entrar al canal de veu, requereix d'un argument", inline=False)
     embed.add_field(name='!sortir', value='Comanda per sortir de qualsevol canal de veu', inline=False)
     await ctx.send(embed=embed)
+
+#Comanda per fer un sorteig
+@client.command()
+async def sorteig(ctx, arg1, *, args):
+    missatge = await ctx.send("Ha començat un sorteig de {} {}!\nReacciona a aquest missatge per entrar.".format(arg1, args))
+    #Extraiem l'id del missatge del bot.
+    msgid = missatge.id
+    await asyncio.sleep(5)
+    await ctx.send(missatge.reactions)
+
 
 #Comanda per entrar al canal de veu, requereix d'un argument
 @client.command()
