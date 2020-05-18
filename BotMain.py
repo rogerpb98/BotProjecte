@@ -151,9 +151,25 @@ async def help(ctx):
 async def sorteig(ctx, arg1, *, args):
     missatge = await ctx.send("Ha començat un sorteig de {} {}!\nReacciona a aquest missatge per entrar.".format(arg1, args))
     #Extraiem l'id del missatge del bot.
-    msgid = missatge.id
+    canal = missatge.channel.id
+    msg = missatge.id
+    await missatge.add_reaction('\U0001F911')
     await asyncio.sleep(5)
-    await ctx.send(missatge.reactions)
+    #Fem un refetch del missatge per actualitzar-lo a la caché i pdoer accedir a les reaccions afegides
+    missatge2 = await client.get_channel(canal).fetch_message(msg)
+    usuaris = []
+    #Extraure totes les reaccions del missatge del bot
+    for reaccio in missatge2.reactions:
+        #Extraure tots els usuaris de les respectives reaccions
+        async for usuari in reaccio.users():
+            if usuari.id == 699922908176318559:
+                pass
+            else:
+                usuaris.append(usuari.mention)
+    guanyador = random.choice(usuaris)
+    await ctx.send("El guanyador es {}!".format(guanyador))
+    
+    #print(missatge2.reactions)
 
 
 #Comanda per entrar al canal de veu, requereix d'un argument
