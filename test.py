@@ -1,14 +1,8 @@
 import random
 
-ruta = "./Text/frases.txt"
-frases = []
-with open(ruta) as my_file:
-    for line in my_file:
-        frases.append(line)
-print(random.choice(frases))
-
-
-
+with open("./Text/frases.txt") as fitxer:
+    lineas = fitxer.readlines()
+    print(random.choice(lineas))
 
 
 

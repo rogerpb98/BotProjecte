@@ -81,14 +81,9 @@ async def on_message(message):
     #Galeta de la fortuna, utilitzant la llibrería "random" el bot escollirà una frase de l'array "frases" aleatoriament i la mostrarà per discord.
     if message.content.startswith('!fortuna'):
         canal = message.channel
-        frases=[
-            'Tendrás un día de alegrías y buenos momentos, disfrútalos como nunca.',
-            'Concéntrate en lo que quieres lograr y ganaras. No lo olvides.',
-            'El cielo sera tu limite, pues grandes acontecimientos te sucederán.',
-            'Te sentirás feliz como un niño y veras al mundo con sus ojos.',
-            'Vivirás tu vejez con comodidades y riquezas materiales.'
-        ]
-        await message.channel.send(random.choice(frases))
+        with open("./Text/frases.txt") as fitxer:
+            lineas = fitxer.readlines()
+        await message.channel.send(random.choice(lineas))
         
     #Comanda de prova per veure com enviar missatges per un canal de texte a Discord.
     if message.content.startswith('!patata'):
@@ -140,9 +135,10 @@ async def help(ctx):
     embed.add_field(name='!mencioall', value='Menciona a tothom en aquest servidor.', inline=False)
     embed.add_field(name='!menciorandom', value='Menciona aleatoriament a un usuari del servidor.', inline=False)
     embed.add_field(name='!imatge', value='Event/comanda que mostra una imatge dintre de la carpeta.', inline=False)
-    embed.add_field(name='!fortuna', value="Galeta de la fortuna, utilitzant la llibrería 'random' el bot escollirà una frase de l'array 'frases' aleatoriament i la mostrarà per discord.", inline=False)
+    embed.add_field(name='!fortuna', value="Galeta de la fortuna, utilitzant la llibrería 'random' el bot escollirà una frase del fitxer frases.txt aleatoriament i la mostrarà per discord.", inline=False)
+    embed.add_field(name='!sorteig <arg1> <arg2>', value='El bot enviarà un missatge anunciant un sorteig, 10 segons després escollirà i anomenarà un guanyador.', inline=False)
     embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes del canal de veu', inline=False)
-    embed.add_field(name='!entrar', value="#Comanda per entrar al canal de veu, requereix d'un argument", inline=False)
+    embed.add_field(name='!entrar <arg>', value="Comanda per entrar al canal de veu, requereix d'un argument \n(Cal especificar el canal de veu afegint el nom com a argument)", inline=False)
     embed.add_field(name='!sortir', value='Comanda per sortir de qualsevol canal de veu', inline=False)
     await ctx.send(embed=embed)
 
