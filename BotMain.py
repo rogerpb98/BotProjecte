@@ -145,25 +145,28 @@ async def help(ctx):
 #Comanda per fer un sorteig
 @client.command()
 async def sorteig(ctx, arg1, *, args):
-    missatge = await ctx.send("Ha començat un sorteig de {} {}!\nReacciona a aquest missatge per entrar.".format(arg1, args))
-    #Extraiem l'id del missatge del bot.
-    canal = missatge.channel.id
-    msg = missatge.id
-    await missatge.add_reaction('\U0001F911')
-    await asyncio.sleep(5)
-    #Fem un refetch del missatge per actualitzar-lo a la caché i pdoer accedir a les reaccions afegides
-    missatge2 = await client.get_channel(canal).fetch_message(msg)
-    usuaris = []
-    #Extraure totes les reaccions del missatge del bot
-    for reaccio in missatge2.reactions:
-        #Extraure tots els usuaris de les respectives reaccions
-        async for usuari in reaccio.users():
-            if usuari.id == 699922908176318559:
-                pass
-            else:
-                usuaris.append(usuari.mention)
-    guanyador = random.choice(usuaris)
-    await ctx.send("El guanyador es {}!".format(guanyador))
+    if arg1.isnumeric() == True:
+        missatge = await ctx.send("Ha començat un sorteig de {} {}!\nReacciona a aquest missatge per entrar.".format(arg1, args))
+        #Extraiem l'id del missatge del bot.
+        canal = missatge.channel.id
+        msg = missatge.id
+        await missatge.add_reaction('\U0001F911')
+        await asyncio.sleep(5)
+        #Fem un refetch del missatge per actualitzar-lo a la caché i pdoer accedir a les reaccions afegides
+        missatge2 = await client.get_channel(canal).fetch_message(msg)
+        usuaris = []
+        #Extraure totes les reaccions del missatge del bot
+        for reaccio in missatge2.reactions:
+            #Extraure tots els usuaris de les respectives reaccions
+            async for usuari in reaccio.users():
+                if usuari.id == 699922908176318559:
+                    pass
+                else:
+                    usuaris.append(usuari.mention)
+        guanyador = random.choice(usuaris)
+        await ctx.send("El guanyador es {}!".format(guanyador))
+    else:
+        await ctx.send("El primer argument ha de ser numeric.")
     
     #print(missatge2.reactions)
 
