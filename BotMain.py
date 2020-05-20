@@ -136,7 +136,7 @@ async def help(ctx):
     embed.add_field(name='!menciorandom', value='Menciona aleatoriament a un usuari del servidor.', inline=False)
     embed.add_field(name='!imatge', value='Event/comanda que mostra una imatge dintre de la carpeta.', inline=False)
     embed.add_field(name='!fortuna', value="Galeta de la fortuna, utilitzant la llibrería 'random' el bot escollirà una frase del fitxer frases.txt aleatoriament i la mostrarà per discord.", inline=False)
-    embed.add_field(name='!sorteig <arg1> <arg2>', value='El bot enviarà un missatge anunciant un sorteig, 10 segons després escollirà i anomenarà un guanyador.', inline=False)
+    embed.add_field(name='!sorteig <arg1> <arg2>', value='El bot enviarà un missatge anunciant un sorteig, 10 segons després escollirà i anomenarà un guanyador.\narg1 = Quantitat\narg2=Objecte a sortejar\nEl primer argument ha de ser numèric', inline=False)
     embed.add_field(name='----------------------------------------------------------------------------------------', value='Comandes del canal de veu', inline=False)
     embed.add_field(name='!entrar <arg>', value="Comanda per entrar al canal de veu, requereix d'un argument \n(Cal especificar el canal de veu afegint el nom com a argument)", inline=False)
     embed.add_field(name='!sortir', value='Comanda per sortir de qualsevol canal de veu', inline=False)
@@ -146,25 +146,28 @@ async def help(ctx):
 @client.command()
 async def sorteig(ctx, arg1, *, args):
     if arg1.isnumeric() == True:
-        missatge = await ctx.send("Ha començat un sorteig de {} {}!\nReacciona a aquest missatge per entrar.".format(arg1, args))
-        #Extraiem l'id del missatge del bot.
-        canal = missatge.channel.id
-        msg = missatge.id
-        await missatge.add_reaction('\U0001F911')
-        await asyncio.sleep(5)
-        #Fem un refetch del missatge per actualitzar-lo a la caché i pdoer accedir a les reaccions afegides
-        missatge2 = await client.get_channel(canal).fetch_message(msg)
-        usuaris = []
-        #Extraure totes les reaccions del missatge del bot
-        for reaccio in missatge2.reactions:
-            #Extraure tots els usuaris de les respectives reaccions
-            async for usuari in reaccio.users():
-                if usuari.id == 699922908176318559:
-                    pass
-                else:
-                    usuaris.append(usuari.mention)
-        guanyador = random.choice(usuaris)
-        await ctx.send("El guanyador es {}!".format(guanyador))
+        if arg1 == "0":
+            await ctx.send("El numero d'objectes a sortejar no pot ser 0.")
+        else:
+            missatge = await ctx.send("Ha començat un sorteig de {} {}!\nReacciona a aquest missatge per entrar.".format(arg1, args))
+            #Extraiem l'id del missatge del bot.
+            canal = missatge.channel.id
+            msg = missatge.id
+            await missatge.add_reaction('\U0001F911')
+            await asyncio.sleep(5)
+            #Fem un refetch del missatge per actualitzar-lo a la caché i pdoer accedir a les reaccions afegides
+            missatge2 = await client.get_channel(canal).fetch_message(msg)
+            usuaris = []
+            #Extraure totes les reaccions del missatge del bot
+            for reaccio in missatge2.reactions:
+                #Extraure tots els usuaris de les respectives reaccions
+                async for usuari in reaccio.users():
+                    if usuari.id == 699922908176318559:
+                        pass
+                    else:
+                        usuaris.append(usuari.mention)
+            guanyador = random.choice(usuaris)
+            await ctx.send("El guanyador es {}!".format(guanyador))
     else:
         await ctx.send("El primer argument ha de ser numeric.")
     
