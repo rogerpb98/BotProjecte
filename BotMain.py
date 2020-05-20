@@ -2,6 +2,7 @@ import discord
 import random
 import asyncio
 import time
+import os
 from discord.ext import commands, tasks
 
 token = 'Njk5OTIyOTA4MTc2MzE4NTU5.Xqq8-g.C2Yvl3C6v1X19saiNDHyHJ6ZOOI'
@@ -51,6 +52,8 @@ async def on_message(message):
         #Buscar forma de interactuar amb el bot per decidir si la imatge será d'animals o d'insectes
         canal = message.channel
         misatge = await canal.send("Reacciona a aquest missatge amb un dels seguents emojis \n :cat: Fotografia d'un animal \n :bee: Fotografia d'un insecte")
+        await misatge.add_reaction('\U0001f431')
+        await misatge.add_reaction('\U0001f41d')
         def check(reaction, user):
             return user == message.author and (str(reaction.emoji) == '\U0001f431' or str(reaction.emoji) == '\U0001f41d')
         try:
@@ -145,9 +148,10 @@ async def help(ctx):
 #Comanda per fer un sorteig
 @client.command()
 async def sorteig(ctx, arg1, *, args):
+    #Verificar si el primer argument es numeric utilitzant la funció .isnumeric
     if arg1.isnumeric() == True:
         if arg1 == "0":
-            await ctx.send("El numero d'objectes a sortejar no pot ser 0.")
+            await ctx.send("El número d'objectes a sortejar no pot ser 0.")
         else:
             missatge = await ctx.send("Ha començat un sorteig de {} {}!\nReacciona a aquest missatge per entrar.".format(arg1, args))
             #Extraiem l'id del missatge del bot.
@@ -170,8 +174,6 @@ async def sorteig(ctx, arg1, *, args):
             await ctx.send("El guanyador es {}!".format(guanyador))
     else:
         await ctx.send("El primer argument ha de ser numeric.")
-    
-    #print(missatge2.reactions)
 
 
 #Comanda per entrar al canal de veu, requereix d'un argument
